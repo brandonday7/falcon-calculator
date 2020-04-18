@@ -38,9 +38,9 @@ const Row = styled(View)`
   align-items: center;
 `
 
-const Title = styled(Text)`
+const Title = styled(Text)<{small?: boolean}>`
   color: rgb(204, 204, 204);
-  font-size: 13px;
+font-size: ${({ small }) => small ? '10px' : '13px'};
 `
 
 const Result = styled(Text)`
@@ -200,30 +200,44 @@ const Calculator: FC = () => {
           <PerSqFt>{(rentalValue / totalFloorArea).toFixed(2)} /sq ft</PerSqFt>
         </SideNote>
 
-      <StackContainer color={NAVY}>
-        <Title>Net Multiple</Title>
-        <Center>
-          <Result>{(100/netInitialYield).toFixed(2)} x</Result>
-        </Center>
-      </StackContainer>
-
       <Row>
         <StackContainer color={DARK_NAVY}>
-          <Title>Gross Initial Yield</Title>
+          <Title small>Gross Initial Yield</Title>
           <Center>
             <Result>{grossInitialYield.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
         <StackContainer color={NAVY} divider>
-          <Title>Net Initial Yield</Title>
+          <Title small>Net Initial Yield</Title>
           <Center>
             <Result>{netInitialYield.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
         <StackContainer color={DARK_NAVY}>
-          <Title>Revisionary Yield</Title>
+          <Title small>Revisionary Yield</Title>
           <Center>
             <Result>{revisionaryYield.toFixed(2)}%</Result>
+          </Center>
+        </StackContainer>
+      </Row>
+
+      <Row>
+        <StackContainer color={NAVY}>
+          <Title small>Gross Multiple</Title>
+          <Center>
+            <Result>{(100 / grossInitialYield).toFixed(2)} x</Result>
+          </Center>
+        </StackContainer>
+        <StackContainer color={DARK_NAVY} divider>
+          <Title small>Net Multiple</Title>
+          <Center>
+            <Result>{(100 / netInitialYield).toFixed(2)} x</Result>
+          </Center>
+        </StackContainer>
+        <StackContainer color={NAVY}>
+          <Title small>Revisionary Multiple</Title>
+          <Center>
+            <Result>{(100 / revisionaryYield).toFixed(2)} x</Result>
           </Center>
         </StackContainer>
       </Row>

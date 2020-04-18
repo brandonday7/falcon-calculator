@@ -11,7 +11,7 @@ const Icon = styled(View)`
   width: 26px;
   height: 26px;
   border-radius: 50px;
-  background-color: black;
+  background-color: rgb(51, 56, 62);
   display: flex;
   justify-content: center;
   align-items: center;
