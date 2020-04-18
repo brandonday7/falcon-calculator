@@ -1,19 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native';
+import Calculator from "./components/Calculator"
+import Header from "./components/Header"
+import styled from "styled-components"
+
+const StyledView = styled(ScrollView)`
+  flex: 1;
+  /* overflow: scroll; */
+`
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <StyledView>
+      <Header />
+      <Calculator />
+    </StyledView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
