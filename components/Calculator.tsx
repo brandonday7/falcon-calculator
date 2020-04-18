@@ -60,6 +60,18 @@ const Value = styled(TextInput)`
   font-weight: 400;  
 `
 
+const updateValue = (setter: (newValue: number) => void, value: string, percentage?: boolean) => {
+  const valueAsNumber = Number(value.replace(/[^\d.-]/g, ''))
+  if (valueAsNumber < 0) {
+    setter(0)
+  } 
+  else if (percentage && valueAsNumber > 100) {
+    setter(100)
+  } else {
+    setter(valueAsNumber)
+  }
+}
+
 const Calculator: FC = () => {
   const [netPurchasePrice, setNetPurchasePrice] = useState(10000000)
   const [purchaseCosts, setPurchaseCosts] = useState(6.8)
@@ -78,37 +90,47 @@ const Calculator: FC = () => {
   const [equityRequirement, setEquityRequirement] = useState(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
   const [grossCashOnCash, setGrossCashOnCash] = useState(((passingRent - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
 
+
   useEffect(() => {
     setGrossPurchasePrice(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
+  }, [purchaseCosts, netPurchasePrice])
+
+  useEffect(() => {
     setNetInitialYield(passingRent / grossPurchasePrice * 100)
+  }, [passingRent, grossPurchasePrice])
+
+  useEffect(() => {
     setGrossInitialYield(passingRent / netPurchasePrice * 100)
+  }, [passingRent, netPurchasePrice])
+
+  useEffect(() => {
     setRevisionaryYield(rentalValue / grossPurchasePrice * 100)
+  }, [rentalValue, grossPurchasePrice])
+
+  useEffect(() => {
     setLoanAmount(netPurchasePrice * loanToValue / 100)
+  }, [netPurchasePrice, loanToValue])
+
+  useEffect(() => {
     setEquityRequirement(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
+  }, [grossPurchasePrice, loanAmount, loanArrangementFee])
+  
+  useEffect(() => {
     setGrossCashOnCash(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
-  }, [
-    netPurchasePrice, 
-    purchaseCosts,
-    totalFloorArea,
-    passingRent, 
-    rentalValue,
-    loanToValue,
-    loanArrangementFee,
-    totalInterestRate
-  ])
+  }, [passingRent, totalInterestRate, loanAmount, equityRequirement])
 
   return(
     <>
       <StackContainer>
         <Title>Net Purchase Price</Title>
         <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setNetPurchasePrice(Number(netPurchasePrice) - 1)}></Incrementer>
+          <Incrementer type="minus" onPress={() => setNetPurchasePrice(Number(netPurchasePrice) - 10000)}></Incrementer>
           <Value 
             keyboardType='numeric'
             value={formatThousands(netPurchasePrice)} 
-            onChangeText={input => setNetPurchasePrice(input)}
+            onChangeText={input => updateValue(setNetPurchasePrice, input)}
           />
-          <Incrementer type="plus" onPress={() => setNetPurchasePrice(Number(netPurchasePrice) + 1)}></Incrementer>
+          <Incrementer type="plus" onPress={() => setNetPurchasePrice(Number(netPurchasePrice) + 10000)}></Incrementer>
         </Center>
       </StackContainer>
 
@@ -119,7 +141,7 @@ const Calculator: FC = () => {
           <Value
             keyboardType='numeric'
             value={purchaseCosts.toFixed(2) + '%'}
-            onChangeText={input => setPurchaseCosts(input)}
+            onChangeText={input => updateValue(setPurchaseCosts, input)}
           />
           <Incrementer type="plus" onPress={() => setPurchaseCosts(Number(purchaseCosts) + 0.1)}></Incrementer>
         </Center>
@@ -139,7 +161,7 @@ const Calculator: FC = () => {
           <Value
             keyboardType='numeric'
             value={formatThousands(totalFloorArea)}
-            onChangeText={input => setTotalFloorArea(input)}
+            onChangeText={input => updateValue(setTotalFloorArea, input)}
           />
           <Incrementer type="plus" onPress={() => setTotalFloorArea(Number(totalFloorArea) + 1000)}></Incrementer>
         </Center>
@@ -152,7 +174,7 @@ const Calculator: FC = () => {
             <Value
               keyboardType='numeric'
               value={formatThousands(passingRent)}
-              onChangeText={input => setPassingRent(input)}
+              onChangeText={input => updateValue(setPassingRent, input)}
               />
             <Incrementer type="plus" onPress={() => setPassingRent(Number(passingRent) + 10000)}></Incrementer>
           </Center>
@@ -168,7 +190,7 @@ const Calculator: FC = () => {
             <Value
               keyboardType='numeric'
               value={formatThousands(rentalValue)}
-              onChangeText={input => setRentalValue(input)}
+              onChangeText={input => updateValue(setRentalValue, input)}
               />
             <Incrementer type="plus" onPress={() => setRentalValue(Number(rentalValue) + 10000)}></Incrementer>
           </Center>
@@ -219,7 +241,7 @@ const Calculator: FC = () => {
           <Value
             keyboardType='numeric'
             value={loanToValue.toFixed(2) + '%'}
-            onChangeText={input => setLoanToValue(input)}
+            onChangeText={input => updateValue(setLoanToValue, input)}
           />
           <Incrementer type="plus" onPress={() => setLoanToValue(Number(loanToValue) + 1)}></Incrementer>
         </Center>
@@ -232,7 +254,7 @@ const Calculator: FC = () => {
           <Value
             keyboardType='numeric'
             value={loanArrangementFee.toFixed(2) + '%'}
-            onChangeText={input => setLoanArragementFee(input)}
+            onChangeText={input => updateValue(setLoanArragementFee, input)}
           />
           <Incrementer type="plus" onPress={() => setLoanArragementFee(Number(loanArrangementFee) + 0.1)}></Incrementer>
         </Center>
@@ -245,7 +267,7 @@ const Calculator: FC = () => {
           <Value
             keyboardType='numeric'
             value={totalInterestRate.toFixed(2) + '%'}
-            onChangeText={input => setTotalInterestRate(input)}
+            onChangeText={input => updateValue(setTotalInterestRate, input)}
           />
           <Incrementer type="plus" onPress={() => setTotalInterestRate(Number(totalInterestRate) + 0.1)}></Incrementer>
         </Center>
