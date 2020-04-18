@@ -1,0 +1,17 @@
+{
+  "name": "falcon-v1.0",
+  "displayName": "falcon-v1.0",
+  "expo": {
+    "name": "falcon-v1.0",
+    "slug": "falcon-v1.0",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
