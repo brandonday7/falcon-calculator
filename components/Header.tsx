@@ -1,14 +1,26 @@
 import React, { FC } from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import styled from "styled-components"
 
 const StyledImage = styled(Image)`
-  height: 270px;
-  width: auto;
+  height: 58%;
+  width: 90%;
 `
 
+const Background = styled(View)`
+  flex: 1;
+  background-color: rgb(51, 56, 62);
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+
 const Header: FC = () => (
-  <StyledImage source={require('../images/falconBanner.jpg')}/>
+  <Background>
+    <StyledImage source={require('../images/logo.png')}/>
+  </Background>
 )
 
 export default Header

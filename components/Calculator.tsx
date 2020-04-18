@@ -67,14 +67,7 @@ const Percent = styled(Text)`
 
 const updateValue = (setter: (newValue: number) => void, value: string, percentage?: boolean) => {
   const valueAsNumber = Number(value.replace(/[^\d.-]/g, ''))
-  if (valueAsNumber < 0) {
-    setter(0)
-  } 
-  else if (percentage && valueAsNumber > 100) {
-    setter(100)
-  } else {
-    setter(valueAsNumber)
-  }
+  setter(valueAsNumber)
 }
 
 const Calculator: FC = () => {
