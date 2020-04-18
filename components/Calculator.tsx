@@ -35,6 +35,7 @@ const Row = styled(View)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `
 
 const Title = styled(Text)`
@@ -58,6 +59,10 @@ const Center = styled(View)<{spaceBetween?: boolean}>`
 const Value = styled(TextInput)`
   font-size: 25px;
   font-weight: 400;  
+`
+
+const Percent = styled(Text)`
+  font-size: 25px;
 `
 
 const updateValue = (setter: (newValue: number) => void, value: string, percentage?: boolean) => {
@@ -138,11 +143,14 @@ const Calculator: FC = () => {
         <Title>Purchase Costs</Title>
         <Center spaceBetween>
           <Incrementer type="minus" onPress={() => setPurchaseCosts(Number(purchaseCosts) - 0.1)}></Incrementer>
-          <Value
-            keyboardType='numeric'
-            value={purchaseCosts.toFixed(2) + '%'}
-            onChangeText={input => updateValue(setPurchaseCosts, input)}
-          />
+          <Row>
+            <Value
+              keyboardType='numeric'
+              value={purchaseCosts.toFixed(2)}
+              onChangeText={input => updateValue(setPurchaseCosts, input)}
+            />
+            <Percent>%</Percent>
+          </Row>
           <Incrementer type="plus" onPress={() => setPurchaseCosts(Number(purchaseCosts) + 0.1)}></Incrementer>
         </Center>
       </StackContainer>
@@ -238,11 +246,14 @@ const Calculator: FC = () => {
         <Title>Loan to Value</Title>
         <Center spaceBetween>
           <Incrementer type="minus" onPress={() => setLoanToValue(Number(loanToValue) - 1)}></Incrementer>
-          <Value
-            keyboardType='numeric'
-            value={loanToValue.toFixed(2) + '%'}
-            onChangeText={input => updateValue(setLoanToValue, input)}
-          />
+          <Row>
+            <Value
+              keyboardType='numeric'
+              value={loanToValue.toFixed(2)}
+              onChangeText={input => updateValue(setLoanToValue, input)}
+              />
+              <Percent>%</Percent>
+            </Row>
           <Incrementer type="plus" onPress={() => setLoanToValue(Number(loanToValue) + 1)}></Incrementer>
         </Center>
       </StackContainer>
@@ -251,11 +262,14 @@ const Calculator: FC = () => {
         <Title>Loan Arrangement Fee</Title>
         <Center spaceBetween>
           <Incrementer type="minus" onPress={() => setLoanArragementFee(Number(loanArrangementFee) - 0.1)}></Incrementer>
-          <Value
-            keyboardType='numeric'
-            value={loanArrangementFee.toFixed(2) + '%'}
-            onChangeText={input => updateValue(setLoanArragementFee, input)}
-          />
+          <Row>
+            <Value
+              keyboardType='numeric'
+              value={loanArrangementFee.toFixed(2)}
+              onChangeText={input => updateValue(setLoanArragementFee, input)}
+            />
+            <Percent>%</Percent>
+          </Row>
           <Incrementer type="plus" onPress={() => setLoanArragementFee(Number(loanArrangementFee) + 0.1)}></Incrementer>
         </Center>
       </StackContainer>
@@ -264,11 +278,14 @@ const Calculator: FC = () => {
         <Title>Total Interest Rate</Title>
         <Center spaceBetween>
           <Incrementer type="minus" onPress={() => setTotalInterestRate(Number(totalInterestRate) - 0.1)}></Incrementer>
-          <Value
-            keyboardType='numeric'
-            value={totalInterestRate.toFixed(2) + '%'}
-            onChangeText={input => updateValue(setTotalInterestRate, input)}
-          />
+          <Row>
+            <Value
+              keyboardType='numeric'
+              value={totalInterestRate.toFixed(2)}
+              onChangeText={input => updateValue(setTotalInterestRate, input)}
+            />
+            <Percent>%</Percent>
+          </Row>
           <Incrementer type="plus" onPress={() => setTotalInterestRate(Number(totalInterestRate) + 0.1)}></Incrementer>
         </Center>
       </StackContainer>
