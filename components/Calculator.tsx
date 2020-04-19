@@ -89,9 +89,6 @@ const Calculator: FC = () => {
   const [equityRequirement, setEquityRequirement] = useState(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
   const [grossCashOnCash, setGrossCashOnCash] = useState(((passingRent - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
   
-  const [tempVal, setTempVal] = useState('')
-  const [focusedElement, setFocusedElement] = useState('')
-
   useEffect(() => {
     setGrossPurchasePrice(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
   }, [purchaseCosts, netPurchasePrice])
@@ -123,26 +120,16 @@ const Calculator: FC = () => {
   return(
     <>
       <Input 
-        id='netPurchasePrice'
         title='Net Purchase Price'
         value={netPurchasePrice}
         setter={setNetPurchasePrice}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={10000}
       />
 
       <Input
-        id='purchaseCosts'
         title='Purchase Costs'
         value={purchaseCosts}
         setter={setPurchaseCosts}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         percentage
         incrementValue={0.1}
       />
@@ -155,26 +142,16 @@ const Calculator: FC = () => {
       </StackContainer>
 
       <Input
-        id='totalFloorArea'
         title='Total Floor Area (sq ft)'
         value={totalFloorArea}
         setter={setTotalFloorArea}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={1000}
       />
 
       <Input
-        id='passingRent'
         title='Passing Rent'
         value={passingRent}
         setter={setPassingRent}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={10000}
       />
       <SideNote color={DARK_NAVY}>
@@ -182,14 +159,9 @@ const Calculator: FC = () => {
       </SideNote>
 
       <Input
-        id='rentalValue'
         title='Rental Value'
         value={rentalValue}
         setter={setRentalValue}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={10000}
       />
       <SideNote color={NAVY}>
@@ -246,40 +218,25 @@ const Calculator: FC = () => {
       </StackContainer>
 
       <Input
-        id='loanToValue'
         title='Loan to Value'
         value={loanToValue}
         setter={setLoanToValue}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={1}
         percentage
       />
 
       <Input
-        id='loanArrangementFee'
         title='Loan Arrangement Fee'
         value={loanArrangementFee}
         setter={setLoanArragementFee}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={0.1}
         percentage
       />
 
       <Input
-        id='totalInterestRate'
         title='Total Interest Rate'
         value={totalInterestRate}
         setter={setTotalInterestRate}
-        setTempVal={setTempVal}
-        tempVal={tempVal}
-        focusedElement={focusedElement}
-        setFocusedElement={setFocusedElement}
         incrementValue={0.1}
         percentage
       />

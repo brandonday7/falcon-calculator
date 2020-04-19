@@ -1,19 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { View, TextInput, Text } from 'react-native';
 import styled from "styled-components"
 import { formatThousands } from "../utils/utilFuncs"
 import Incrementer from "./Incrementer"
 
 interface Props {
-  id: string
   title: string
   value: number
   setter(value: number): void
   incrementValue: number
-  setTempVal(value: string): void
-  tempVal: string
-  focusedElement: string;
-  setFocusedElement(id: string): void
   percentage?: boolean
 }
 
@@ -56,7 +51,11 @@ const Percent = styled(Text)`
 
 const updateValue = (setter: (newValue: number) => void, value: string, percentage?: boolean) => {
   const valueAsNumber = Number(value.replace(/[^\d.-]/g, ''))
-  setter(valueAsNumber)
+  if (valueAsNumber < 0) {
+    setter(0)
+  } else {
+    setter(valueAsNumber)
+  }
 }
 
 const formatValue = (value: number, percentage?: boolean) => {
@@ -67,17 +66,15 @@ const formatValue = (value: number, percentage?: boolean) => {
 }
 
 const Input: FC<Props> = ({ 
-  id, 
   title, 
   value, 
   setter, 
   incrementValue,
-  setTempVal, 
-  tempVal,
-  focusedElement, 
-  setFocusedElement,
   percentage, 
 }) => {
+  const [isFocused, setFocus] = useState(false)
+  const [tempVal, setTempVal] = useState('')
+
   return (
     <StackContainer>
       <Title>{title}</Title>
@@ -86,14 +83,15 @@ const Input: FC<Props> = ({
         <Row>
           <Value
             keyboardType='numeric'
-            value={focusedElement === id ? tempVal : formatValue(value, percentage)}
+            value={isFocused ? tempVal : formatValue(value, percentage)}
             onFocus={() => {
               setTempVal(formatValue(value, percentage))
-              setFocusedElement(id)
+              setFocus(true)
             }}
             onBlur={() => {
               updateValue(setter, tempVal)
-              setFocusedElement('')
+              setTempVal('')
+              setFocus(false)
             }}
             onChangeText={input => setTempVal(input)}
             />
