@@ -3,6 +3,7 @@ import { Text, View, TextInput, TouchableHighlight } from 'react-native';
 import styled from "styled-components"
 import { formatThousands } from "../utils/utilFuncs"
 import Incrementer from "./Incrementer"
+import Input from "./Input"
 
 const DARK_NAVY = "rgb(51, 56, 62)"
 const NAVY = "rgb(56, 62, 68)"
@@ -79,7 +80,7 @@ const Calculator: FC = () => {
   const [loanToValue, setLoanToValue] = useState(60)
   const [loanArrangementFee, setLoanArragementFee] = useState(1)
   const [totalInterestRate, setTotalInterestRate] = useState(2.5)
-
+  
   const [grossPurchasePrice, setGrossPurchasePrice] = useState(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
   const [netInitialYield, setNetInitialYield] = useState(passingRent / grossPurchasePrice * 100)
   const [grossInitialYield, setGrossInitialYield] = useState(passingRent / netPurchasePrice * 100)
@@ -87,7 +88,9 @@ const Calculator: FC = () => {
   const [loanAmount, setLoanAmount] = useState(netPurchasePrice * loanToValue / 100)
   const [equityRequirement, setEquityRequirement] = useState(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
   const [grossCashOnCash, setGrossCashOnCash] = useState(((passingRent - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
-
+  
+  const [tempVal, setTempVal] = useState('')
+  const [focusedElement, setFocusedElement] = useState('')
 
   useEffect(() => {
     setGrossPurchasePrice(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
@@ -119,34 +122,30 @@ const Calculator: FC = () => {
 
   return(
     <>
-      <StackContainer>
-        <Title>Net Purchase Price</Title>
-        <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setNetPurchasePrice(Number(netPurchasePrice) - 10000)}></Incrementer>
-          <Value 
-            keyboardType='numeric'
-            value={formatThousands(netPurchasePrice)} 
-            onChangeText={input => updateValue(setNetPurchasePrice, input)}
-          />
-          <Incrementer type="plus" onPress={() => setNetPurchasePrice(Number(netPurchasePrice) + 10000)}></Incrementer>
-        </Center>
-      </StackContainer>
+      <Input 
+        id='netPurchasePrice'
+        title='Net Purchase Price'
+        value={netPurchasePrice}
+        setter={setNetPurchasePrice}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={10000}
+      />
 
-      <StackContainer>
-        <Title>Purchase Costs</Title>
-        <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setPurchaseCosts(Number(purchaseCosts) - 0.1)}></Incrementer>
-          <Row>
-            <Value
-              keyboardType='numeric'
-              value={purchaseCosts.toFixed(2)}
-              onChangeText={input => updateValue(setPurchaseCosts, input)}
-            />
-            <Percent>%</Percent>
-          </Row>
-          <Incrementer type="plus" onPress={() => setPurchaseCosts(Number(purchaseCosts) + 0.1)}></Incrementer>
-        </Center>
-      </StackContainer>
+      <Input
+        id='purchaseCosts'
+        title='Purchase Costs'
+        value={purchaseCosts}
+        setter={setPurchaseCosts}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        percentage
+        incrementValue={0.1}
+      />
 
       <StackContainer color={DARK_NAVY}>
         <Title>Gross Purchase Price</Title>
@@ -155,50 +154,47 @@ const Calculator: FC = () => {
         </Center>
       </StackContainer>
 
-      <StackContainer>
-        <Title>Total Floor Area (sq ft)</Title>
-        <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setTotalFloorArea(Number(totalFloorArea) - 1000)}></Incrementer>
-          <Value
-            keyboardType='numeric'
-            value={formatThousands(totalFloorArea)}
-            onChangeText={input => updateValue(setTotalFloorArea, input)}
-          />
-          <Incrementer type="plus" onPress={() => setTotalFloorArea(Number(totalFloorArea) + 1000)}></Incrementer>
-        </Center>
-      </StackContainer>
+      <Input
+        id='totalFloorArea'
+        title='Total Floor Area (sq ft)'
+        value={totalFloorArea}
+        setter={setTotalFloorArea}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={1000}
+      />
 
-        <StackContainer>
-          <Title>Passing Rent</Title>
-          <Center spaceBetween>
-            <Incrementer type="minus" onPress={() => setPassingRent(Number(passingRent) - 10000)}></Incrementer>
-            <Value
-              keyboardType='numeric'
-              value={formatThousands(passingRent)}
-              onChangeText={input => updateValue(setPassingRent, input)}
-              />
-            <Incrementer type="plus" onPress={() => setPassingRent(Number(passingRent) + 10000)}></Incrementer>
-          </Center>
-        </StackContainer>
-        <SideNote color={DARK_NAVY}>
-            <PerSqFt>{(passingRent / totalFloorArea).toFixed(2)} /sq ft</PerSqFt>
-        </SideNote>
+      <Input
+        id='passingRent'
+        title='Passing Rent'
+        value={passingRent}
+        setter={setPassingRent}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={10000}
+      />
+      <SideNote color={DARK_NAVY}>
+          <PerSqFt>{(passingRent / totalFloorArea).toFixed(2)} /sq ft</PerSqFt>
+      </SideNote>
 
-        <StackContainer>
-          <Title>Rental Value</Title>
-          <Center spaceBetween>
-            <Incrementer type="minus" onPress={() => setRentalValue(Number(rentalValue) - 10000)}></Incrementer>
-            <Value
-              keyboardType='numeric'
-              value={formatThousands(rentalValue)}
-              onChangeText={input => updateValue(setRentalValue, input)}
-              />
-            <Incrementer type="plus" onPress={() => setRentalValue(Number(rentalValue) + 10000)}></Incrementer>
-          </Center>
-        </StackContainer>
-        <SideNote color={NAVY}>
-          <PerSqFt>{(rentalValue / totalFloorArea).toFixed(2)} /sq ft</PerSqFt>
-        </SideNote>
+      <Input
+        id='rentalValue'
+        title='Rental Value'
+        value={rentalValue}
+        setter={setRentalValue}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={10000}
+      />
+      <SideNote color={NAVY}>
+        <PerSqFt>{(rentalValue / totalFloorArea).toFixed(2)} /sq ft</PerSqFt>
+      </SideNote>
 
       <Row>
         <StackContainer color={DARK_NAVY}>
@@ -249,53 +245,44 @@ const Calculator: FC = () => {
         </Center>
       </StackContainer>
 
-      <StackContainer>
-        <Title>Loan to Value</Title>
-        <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setLoanToValue(Number(loanToValue) - 1)}></Incrementer>
-          <Row>
-            <Value
-              keyboardType='numeric'
-              value={loanToValue.toFixed(2)}
-              onChangeText={input => updateValue(setLoanToValue, input)}
-              />
-              <Percent>%</Percent>
-            </Row>
-          <Incrementer type="plus" onPress={() => setLoanToValue(Number(loanToValue) + 1)}></Incrementer>
-        </Center>
-      </StackContainer>
+      <Input
+        id='loanToValue'
+        title='Loan to Value'
+        value={loanToValue}
+        setter={setLoanToValue}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={1}
+        percentage
+      />
 
-      <StackContainer>
-        <Title>Loan Arrangement Fee</Title>
-        <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setLoanArragementFee(Number(loanArrangementFee) - 0.1)}></Incrementer>
-          <Row>
-            <Value
-              keyboardType='numeric'
-              value={loanArrangementFee.toFixed(2)}
-              onChangeText={input => updateValue(setLoanArragementFee, input)}
-            />
-            <Percent>%</Percent>
-          </Row>
-          <Incrementer type="plus" onPress={() => setLoanArragementFee(Number(loanArrangementFee) + 0.1)}></Incrementer>
-        </Center>
-      </StackContainer>
+      <Input
+        id='loanArrangementFee'
+        title='Loan Arrangement Fee'
+        value={loanArrangementFee}
+        setter={setLoanArragementFee}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={0.1}
+        percentage
+      />
 
-      <StackContainer>
-        <Title>Total Interest Rate</Title>
-        <Center spaceBetween>
-          <Incrementer type="minus" onPress={() => setTotalInterestRate(Number(totalInterestRate) - 0.1)}></Incrementer>
-          <Row>
-            <Value
-              keyboardType='numeric'
-              value={totalInterestRate.toFixed(2)}
-              onChangeText={input => updateValue(setTotalInterestRate, input)}
-            />
-            <Percent>%</Percent>
-          </Row>
-          <Incrementer type="plus" onPress={() => setTotalInterestRate(Number(totalInterestRate) + 0.1)}></Incrementer>
-        </Center>
-      </StackContainer>
+      <Input
+        id='totalInterestRate'
+        title='Total Interest Rate'
+        value={totalInterestRate}
+        setter={setTotalInterestRate}
+        setTempVal={setTempVal}
+        tempVal={tempVal}
+        focusedElement={focusedElement}
+        setFocusedElement={setFocusedElement}
+        incrementValue={0.1}
+        percentage
+      />
 
       <StackContainer color={DARK_NAVY}>
         <Title>Equity Requirement</Title>
