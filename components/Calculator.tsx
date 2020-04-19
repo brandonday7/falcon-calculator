@@ -9,7 +9,7 @@ const DARK_NAVY = "rgb(51, 56, 62)"
 const NAVY = "rgb(56, 62, 68)"
 
 const StackContainer = styled(View)<{color?: string, divider?: boolean}>`
-  padding: 20px;
+  padding: 15px;
   background-color: ${({ color }) => color || 'white'};
   min-height: 140px;
   flex: 1;
@@ -55,15 +55,6 @@ const Center = styled(View)<{spaceBetween?: boolean}>`
   justify-content: ${({ spaceBetween }) => spaceBetween ? 'space-between' : 'center'};
   align-items: center;
   margin: 30px 0;
-`
-
-const Value = styled(TextInput)`
-  font-size: 25px;
-  font-weight: 400;  
-`
-
-const Percent = styled(Text)`
-  font-size: 25px;
 `
 
 const updateValue = (setter: (newValue: number) => void, value: string, percentage?: boolean) => {

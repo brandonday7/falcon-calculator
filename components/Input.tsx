@@ -14,7 +14,7 @@ interface Props {
 
 
 const StackContainer = styled(View)`
-  padding: 20px;
+  padding: 15px;
   background-color: white;
   min-height: 140px;
   flex: 1;
