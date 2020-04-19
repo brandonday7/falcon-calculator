@@ -10,14 +10,14 @@ const NAVY = "rgb(56, 62, 68)"
 
 const WEBSITE_URL = "https://falconfinancialmodelling.com/"
 
-const StackContainer = styled(View)<{color?: string, divider?: boolean}>`
+const StackContainer = styled(View)<{color?: string, dividerLeft?: boolean, dividerRight?: boolean}>`
   padding: 15px;
   background-color: ${({ color }) => color || 'white'};
   min-height: 140px;
   flex: 1;
   margin-top: 1px;
-  margin-left: ${({ divider }) => divider ? '1px' : '0'};
-  margin-right: ${({ divider }) => divider ? '1px' : '0'};
+  margin-left: ${({ dividerLeft }) => dividerLeft ? '1px' : '0'};
+  margin-right: ${({ dividerRight }) => dividerRight ? '1px' : '0'};
 `
 
 const SideNote = styled(View)`
@@ -176,7 +176,7 @@ const Calculator: FC = () => {
             <Result>{grossInitialYield.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
-        <StackContainer color={NAVY} divider>
+        <StackContainer color={NAVY} dividerLeft dividerRight>
           <Title small>Net Initial Yield</Title>
           <Center>
             <Result>{netInitialYield.toFixed(2)}%</Result>
@@ -197,7 +197,7 @@ const Calculator: FC = () => {
             <Result>{(100 / grossInitialYield).toFixed(2)} x</Result>
           </Center>
         </StackContainer>
-        <StackContainer color={DARK_NAVY} divider>
+        <StackContainer color={DARK_NAVY} dividerLeft dividerRight>
           <Title small>Net Multiple</Title>
           <Center>
             <Result>{(100 / netInitialYield).toFixed(2)} x</Result>
@@ -256,7 +256,7 @@ const Calculator: FC = () => {
             <Result>{currentCashOnCash.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
-        <StackContainer color={NAVY} divider>
+        <StackContainer color={NAVY} dividerLeft>
           <Title>Revisionary Cash on Cash</Title>
           <Center>
             <Result>{currentCashOnCash.toFixed(2)}%</Result>
