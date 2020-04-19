@@ -61,9 +61,16 @@ const updateValue = (setter: (newValue: number) => void, value: string, percenta
 const formatValue = (value: number, percentage?: boolean) => {
   if (percentage) {
     return value.toFixed(2)
+  } else {
+    const cleanValue = Number(value.toString().replace(/[^\d.-]/g, ''))
+    return formatThousands(cleanValue)
   }
-  return formatThousands(value)
 }
+
+// We want the user to be able to type whatever they want 
+// and not have formatting rules get in the way (0 instead of empty, 
+// double decimal place, thousand markers). So we store what they 
+// type in a temp val, and only submit to real variables onBlur
 
 const Input: FC<Props> = ({ 
   title, 
@@ -93,7 +100,7 @@ const Input: FC<Props> = ({
               setTempVal('')
               setFocus(false)
             }}
-            onChangeText={input => setTempVal(input)}
+            onChangeText={input => percentage ? setTempVal(input) : setTempVal(formatValue(input))}
             />
             {percentage && <Percent>%</Percent>}
         </Row>
