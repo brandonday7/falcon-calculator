@@ -85,7 +85,7 @@ const Input: FC<Props> = ({
             keyboardType='numeric'
             value={isFocused ? tempVal : formatValue(value, percentage)}
             onFocus={() => {
-              setTempVal(formatValue(value, percentage))
+              setTempVal('')
               setFocus(true)
             }}
             onBlur={() => {
