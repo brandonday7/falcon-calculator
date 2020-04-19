@@ -6,7 +6,6 @@ import styled from "styled-components"
 
 const StyledView = styled(ScrollView)`
   flex: 1;
-  /* overflow: scroll; */
 `
 
 export default function App() {
