@@ -8,8 +8,8 @@ interface Props {
 }
 
 const Icon = styled(View)`
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
   border-radius: 50px;
   background-color: rgb(51, 56, 62);
   display: flex;
@@ -19,12 +19,12 @@ const Icon = styled(View)`
 
 const Line = styled(View)`
   height: 2px;
-  width: 14px;
+  width: 20px;
   background-color: white;
 `
 
 const VerticalLine = styled(View)`
-  height: 14px;
+  height: 20px;
   width: 2px;
   background-color: white;
   position: absolute;

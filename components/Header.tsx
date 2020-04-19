@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 const LOGO_WIDTH = 1925
 const LOGO_HEIGHT = 699
-const IMAGE_SIZE_RATIO = 0.8
+const IMAGE_SIZE_RATIO = 0.75
 
 const StyledImage = styled(Image)<{width: string, height: string}>`
   width: ${({ width }) => width};
@@ -14,7 +14,7 @@ const StyledImage = styled(Image)<{width: string, height: string}>`
 const Background = styled(View)`
   flex: 1;
   background-color: rgb(51, 56, 62);
-  height: 210px;
+  height: 190px;
   display: flex;
   justify-content: center;
   align-items: center;
