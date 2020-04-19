@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Text, View, TextInput, TouchableHighlight } from 'react-native';
+import { Text, View, TextInput, TouchableHighlight, Linking, TouchableOpacity } from 'react-native';
 import styled from "styled-components"
 import { formatThousands } from "../utils/utilFuncs"
 import Incrementer from "./Incrementer"
@@ -7,6 +7,8 @@ import Input from "./Input"
 
 const DARK_NAVY = "rgb(51, 56, 62)"
 const NAVY = "rgb(56, 62, 68)"
+
+const WEBSITE_URL = "https://falconfinancialmodelling.com/"
 
 const StackContainer = styled(View)<{color?: string, divider?: boolean}>`
   padding: 15px;
@@ -78,7 +80,8 @@ const Calculator: FC = () => {
   const [revisionaryYield, setRevisionaryYield] = useState(rentalValue / grossPurchasePrice * 100)
   const [loanAmount, setLoanAmount] = useState(netPurchasePrice * loanToValue / 100)
   const [equityRequirement, setEquityRequirement] = useState(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
-  const [grossCashOnCash, setGrossCashOnCash] = useState(((passingRent - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
+  const [currentCashOnCash, setCurrentCashOnCash] = useState(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
+  const [revisionaryCashOnCash, setRevisionaryCashOnCash] = useState(((passingRent - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
   
   useEffect(() => {
     setGrossPurchasePrice(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
@@ -105,7 +108,11 @@ const Calculator: FC = () => {
   }, [grossPurchasePrice, loanAmount, loanArrangementFee])
   
   useEffect(() => {
-    setGrossCashOnCash(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
+    setCurrentCashOnCash(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
+  }, [passingRent, totalInterestRate, loanAmount, equityRequirement])
+
+  useEffect(() => {
+    setRevisionaryCashOnCash(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
   }, [passingRent, totalInterestRate, loanAmount, equityRequirement])
 
   return(
@@ -116,6 +123,9 @@ const Calculator: FC = () => {
         setter={setNetPurchasePrice}
         incrementValue={10000}
       />
+      <SideNote color={DARK_NAVY}>
+        <PerSqFt>{formatThousands((netPurchasePrice / totalFloorArea).toFixed(2))} /sq ft</PerSqFt>
+      </SideNote>
 
       <Input
         title='Purchase Costs'
@@ -228,7 +238,7 @@ const Calculator: FC = () => {
         title='Total Interest Rate'
         value={totalInterestRate}
         setter={setTotalInterestRate}
-        incrementValue={0.1}
+        incrementValue={0.05}
         percentage
       />
 
@@ -239,12 +249,25 @@ const Calculator: FC = () => {
         </Center>
       </StackContainer>
 
-      <StackContainer color={NAVY}>
-        <Title>Gross Cash on Cash (pre-tax)</Title>
-        <Center>
-          <Result>{grossCashOnCash.toFixed(2)}%</Result>
-        </Center>
-      </StackContainer>
+      <Row>
+        <StackContainer color={NAVY}>
+          <Title>Current Cash on Cash</Title>
+          <Center>
+            <Result>{currentCashOnCash.toFixed(2)}%</Result>
+          </Center>
+        </StackContainer>
+        <StackContainer color={NAVY} divider>
+          <Title>Revisionary Cash on Cash</Title>
+          <Center>
+            <Result>{currentCashOnCash.toFixed(2)}%</Result>
+          </Center>
+        </StackContainer>
+      </Row>
+      <SideNote color={DARK_NAVY}>
+        <TouchableOpacity onPress={() => Linking.openURL(WEBSITE_URL)}>
+          <PerSqFt>Visit our website</PerSqFt>
+        </TouchableOpacity>
+      </SideNote>
     </>
   )
 }

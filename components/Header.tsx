@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
-import { Image, View, Dimensions } from 'react-native';
+import { Image, View, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import styled from "styled-components"
 
 const LOGO_WIDTH = 1925
 const LOGO_HEIGHT = 699
 const IMAGE_SIZE_RATIO = 0.75
+
+const WEBSITE_URL = "https://falconfinancialmodelling.com/"
 
 const StyledImage = styled(Image)<{width: string, height: string}>`
   width: ${({ width }) => width};
@@ -28,7 +30,9 @@ const Header: FC = () => {
   const height = `${LOGO_HEIGHT * ratio * IMAGE_SIZE_RATIO}px`
   return(
     <Background>
-      <StyledImage source={require('../images/logo3.png')} width={width} height={height} />
+      <TouchableOpacity onPress={() => Linking.openURL(WEBSITE_URL)}>
+        <StyledImage source={require('../images/logoFinal.png')} width={width} height={height} />
+      </TouchableOpacity>
     </Background>
   )
 
