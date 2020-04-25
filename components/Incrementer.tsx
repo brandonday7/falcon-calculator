@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, { FC } from 'react'
+import { View, TouchableOpacity } from 'react-native'
 import styled from "styled-components"
+
 
 interface Props {
   type: string;

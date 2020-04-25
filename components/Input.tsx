@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import React, { FC, useState } from 'react'
+import { View, TextInput, Text } from 'react-native'
 import styled from "styled-components"
 import { formatThousands } from "../utils/utilFuncs"
 import Incrementer from "./Incrementer"

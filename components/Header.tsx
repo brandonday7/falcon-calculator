@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Image, View, Dimensions, TouchableOpacity, Linking } from 'react-native';
+import React, { FC } from 'react'
+import { Image, View, Dimensions, TouchableOpacity, Linking } from 'react-native'
 import styled from "styled-components"
 
 const LOGO_WIDTH = 1925
