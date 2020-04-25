@@ -77,11 +77,11 @@ const Calculator: FC = () => {
   const [grossPurchasePrice, setGrossPurchasePrice] = useState(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
   const [netInitialYield, setNetInitialYield] = useState(passingRent / grossPurchasePrice * 100)
   const [grossInitialYield, setGrossInitialYield] = useState(passingRent / netPurchasePrice * 100)
-  const [revisionaryYield, setRevisionaryYield] = useState(rentalValue / grossPurchasePrice * 100)
+  const [reversionaryYield, setReversionaryYield] = useState(rentalValue / grossPurchasePrice * 100)
   const [loanAmount, setLoanAmount] = useState(netPurchasePrice * loanToValue / 100)
   const [equityRequirement, setEquityRequirement] = useState(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
   const [currentCashOnCash, setCurrentCashOnCash] = useState(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
-  const [revisionaryCashOnCash, setRevisionaryCashOnCash] = useState(((rentalValue - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
+  const [reversionaryCashOnCash, setReversionaryCashOnCash] = useState(((rentalValue - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
   
   useEffect(() => {
     setGrossPurchasePrice(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
@@ -96,7 +96,7 @@ const Calculator: FC = () => {
   }, [passingRent, netPurchasePrice])
 
   useEffect(() => {
-    setRevisionaryYield(rentalValue / grossPurchasePrice * 100)
+    setReversionaryYield(rentalValue / grossPurchasePrice * 100)
   }, [rentalValue, grossPurchasePrice])
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const Calculator: FC = () => {
   }, [passingRent, totalInterestRate, loanAmount, equityRequirement])
 
   useEffect(() => {
-    setRevisionaryCashOnCash(((rentalValue - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
+    setReversionaryCashOnCash(((rentalValue - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
   }, [rentalValue, totalInterestRate, loanAmount, equityRequirement])
 
   return(
@@ -183,9 +183,9 @@ const Calculator: FC = () => {
           </Center>
         </StackContainer>
         <StackContainer color={DARK_NAVY}>
-          <Title small>Revisionary Yield</Title>
+          <Title small>Reversionary Yield</Title>
           <Center>
-            <Result>{revisionaryYield.toFixed(2)}%</Result>
+            <Result>{reversionaryYield.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
       </Row>
@@ -204,9 +204,9 @@ const Calculator: FC = () => {
           </Center>
         </StackContainer>
         <StackContainer color={NAVY}>
-          <Title small>Revisionary Multiple</Title>
+          <Title small>Reversionary Multiple</Title>
           <Center>
-            <Result>{(100 / revisionaryYield).toFixed(2)} x</Result>
+            <Result>{(100 / reversionaryYield).toFixed(2)} x</Result>
           </Center>
         </StackContainer>
       </Row>
@@ -257,9 +257,9 @@ const Calculator: FC = () => {
           </Center>
         </StackContainer>
         <StackContainer color={NAVY} dividerLeft>
-          <Title>Revisionary Cash on Cash</Title>
+          <Title>Reversionary Cash on Cash</Title>
           <Center>
-            <Result>{revisionaryCashOnCash.toFixed(2)}%</Result>
+            <Result>{reversionaryCashOnCash.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
       </Row>
