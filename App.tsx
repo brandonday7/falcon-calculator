@@ -1,8 +1,19 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Calculator from "./components/Calculator"
 import Header from "./components/Header"
 import styled from "styled-components"
+
+const Container = styled(View)`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`
+
+const Fixed = styled(View)`
+  height: 50px;
+  background-color: transparent;
+`
 
 const StyledView = styled(ScrollView)`
   flex: 1;
@@ -10,9 +21,12 @@ const StyledView = styled(ScrollView)`
 
 export default function App() {
   return (
-    <StyledView>
-      <Header />
-      <Calculator />
-    </StyledView>
+    <Container>
+      <Fixed />
+      <StyledView>
+        <Header />
+        <Calculator />
+      </StyledView>
+    </Container>
   );
 }
