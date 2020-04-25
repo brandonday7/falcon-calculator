@@ -81,7 +81,7 @@ const Calculator: FC = () => {
   const [loanAmount, setLoanAmount] = useState(netPurchasePrice * loanToValue / 100)
   const [equityRequirement, setEquityRequirement] = useState(grossPurchasePrice - loanAmount + loanAmount * loanArrangementFee / 100)
   const [currentCashOnCash, setCurrentCashOnCash] = useState(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
-  const [revisionaryCashOnCash, setRevisionaryCashOnCash] = useState(((passingRent - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
+  const [revisionaryCashOnCash, setRevisionaryCashOnCash] = useState(((rentalValue - (totalInterestRate/100 * loanAmount)) / equityRequirement) * 100)
   
   useEffect(() => {
     setGrossPurchasePrice(purchaseCosts / 100 * netPurchasePrice + netPurchasePrice)
@@ -112,8 +112,8 @@ const Calculator: FC = () => {
   }, [passingRent, totalInterestRate, loanAmount, equityRequirement])
 
   useEffect(() => {
-    setRevisionaryCashOnCash(((passingRent - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
-  }, [passingRent, totalInterestRate, loanAmount, equityRequirement])
+    setRevisionaryCashOnCash(((rentalValue - (totalInterestRate / 100 * loanAmount)) / equityRequirement) * 100)
+  }, [rentalValue, totalInterestRate, loanAmount, equityRequirement])
 
   return(
     <>
@@ -259,7 +259,7 @@ const Calculator: FC = () => {
         <StackContainer color={NAVY} dividerLeft>
           <Title>Revisionary Cash on Cash</Title>
           <Center>
-            <Result>{currentCashOnCash.toFixed(2)}%</Result>
+            <Result>{revisionaryCashOnCash.toFixed(2)}%</Result>
           </Center>
         </StackContainer>
       </Row>
