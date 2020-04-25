@@ -124,7 +124,7 @@ const Calculator: FC = () => {
         incrementValue={10000}
       />
       <SideNote color={DARK_NAVY}>
-        <PerSqFt>{formatThousands((netPurchasePrice / totalFloorArea).toFixed(2))} /sq ft</PerSqFt>
+        <PerSqFt>{formatThousands(Number(((netPurchasePrice) / totalFloorArea).toFixed(2)))} /sq ft</PerSqFt>
       </SideNote>
 
       <Input
@@ -156,7 +156,7 @@ const Calculator: FC = () => {
         incrementValue={10000}
       />
       <SideNote color={DARK_NAVY}>
-          <PerSqFt>{formatThousands((passingRent / totalFloorArea).toFixed(2))} /sq ft</PerSqFt>
+          <PerSqFt>{formatThousands(Number((passingRent / totalFloorArea).toFixed(2)))} /sq ft</PerSqFt>
       </SideNote>
 
       <Input
@@ -166,7 +166,7 @@ const Calculator: FC = () => {
         incrementValue={10000}
       />
       <SideNote color={NAVY}>
-        <PerSqFt>{formatThousands((rentalValue / totalFloorArea).toFixed(2))} /sq ft</PerSqFt>
+        <PerSqFt>{formatThousands(Number((rentalValue / totalFloorArea).toFixed(2)))} /sq ft</PerSqFt>
       </SideNote>
 
       <Row>
