@@ -100,7 +100,7 @@ const Input: FC<Props> = ({
               setTempVal('')
               setFocus(false)
             }}
-            onChangeText={input => percentage ? setTempVal(input) : setTempVal(formatValue(input))}
+            onChangeText={(input: any) => percentage ? setTempVal(input) : setTempVal(formatValue(input))}
             />
             {percentage && <Percent>%</Percent>}
         </Row>

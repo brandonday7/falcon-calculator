@@ -8,16 +8,16 @@
       "image": "./images/cash-on-cash-splash.png",
       "backgroundColor": "#33383e"
     },
-    "version": "1.1.0",
+    "version": "1.1.1",
     "slug": "falcon-cash-on-cash",
     "ios": {
       "bundleIdentifier": "com.falconfinancialmodelling.cashoncashcalculator",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.1.1",
       "infoPlist": {}
     },
     "android": {
       "package": "com.falconfinancialmodelling.cashoncashcalculator",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": []
     },
     "primaryColor": "#33383e"
