@@ -9,6 +9,7 @@ const DARK_NAVY = "rgb(51, 56, 62)"
 const NAVY = "rgb(56, 62, 68)"
 
 const WEBSITE_URL = "https://falconfinancialmodelling.com/"
+const PRIVACY_ENDPOINT = "privacy"
 
 const StackContainer = styled(View)<{color?: string, dividerLeft?: boolean, dividerRight?: boolean}>`
   padding: 15px;
@@ -20,13 +21,13 @@ const StackContainer = styled(View)<{color?: string, dividerLeft?: boolean, divi
   margin-right: ${({ dividerRight }) => dividerRight ? '1px' : '0'};
 `
 
-const SideNote = styled(View)`
-  background-color: #a3a7ad;
+const SideNote = styled(View)<{color?: string, height?: number}>`
+  background-color: ${({ color }) => color || "#a3a7ad"};
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 1px;
-  height: 70px;
+  height: ${({ height }) => height || 70}px;
 `
 
 const PerSqFt = styled(Text)`
@@ -123,7 +124,7 @@ const Calculator: FC = () => {
         setter={setNetPurchasePrice}
         incrementValue={10000}
       />
-      <SideNote color={DARK_NAVY}>
+      <SideNote color={NAVY}>
         <PerSqFt>{formatThousands(Number(((netPurchasePrice) / totalFloorArea).toFixed(2)))} /sq ft</PerSqFt>
       </SideNote>
 
@@ -263,9 +264,14 @@ const Calculator: FC = () => {
           </Center>
         </StackContainer>
       </Row>
-      <SideNote color={DARK_NAVY}>
+      <SideNote color={DARK_NAVY} height={80}>
         <TouchableOpacity onPress={() => Linking.openURL(WEBSITE_URL)}>
           <PerSqFt>Visit our website</PerSqFt>
+        </TouchableOpacity>
+      </SideNote>
+      <SideNote height={50}>
+        <TouchableOpacity onPress={() => Linking.openURL(`${WEBSITE_URL}${PRIVACY_ENDPOINT}`)}>
+          <PerSqFt>Privacy</PerSqFt>
         </TouchableOpacity>
       </SideNote>
     </>

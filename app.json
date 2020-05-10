@@ -1,17 +1,25 @@
 {
-  "name": "falcon-v1.0",
-  "displayName": "falcon-v1.0",
+  "name": "Cash on Cash Calculator",
+  "displayName": "Cash on Cash Calculator",
   "expo": {
-    "name": "falcon-v1.0",
-    "slug": "falcon-v1.0",
-    "version": "1.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "name": "Cash on Cash Calculator",
+    "icon": "./images/final-cash-on-cash-calculator.png",
+    "splash": {
+      "image": "./images/cash-on-cash-splash.png",
+      "backgroundColor": "#33383e"
+    },
+    "version": "1.1.0",
+    "slug": "falcon-cash-on-cash",
+    "ios": {
+      "bundleIdentifier": "com.falconfinancialmodelling.cashoncashcalculator",
+      "buildNumber": "1.0.0",
+      "infoPlist": {}
+    },
+    "android": {
+      "package": "com.falconfinancialmodelling.cashoncashcalculator",
+      "versionCode": 3,
+      "permissions": []
+    },
+    "primaryColor": "#33383e"
   }
 }

@@ -12,7 +12,7 @@ const Container = styled(View)`
 
 const Fixed = styled(View)`
   height: 50px;
-  background-color: transparent;
+  background-color: rgb(51, 56, 62);
 `
 
 const StyledView = styled(ScrollView)`
